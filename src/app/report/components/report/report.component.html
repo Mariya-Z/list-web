@@ -1,15 +1,4 @@
-<div *ngFor="let i of arr">
-  <app-checkbox
-    [name]="i.lang"
-    [isChecked]="i.isChecked"
-    (filter)="onClick($event)"
-  ></app-checkbox>
-</div>
-
-<input />
-<button (click)="onReset()">Reset</button>
-
-<div *ngFor="let report of a | async" class="card">
+<div *ngFor="let report of reports$ | async" class="card">
   <p><b>Title: </b>{{ report.title }}</p>
   <p>{{ report.lang }}</p>
 </div>

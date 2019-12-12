@@ -1,1 +1,12 @@
-<p>home works!</p>
+<div *ngFor="let i of arr">
+  <app-checkbox
+    [name]="i.lang"
+    [isChecked]="i.isChecked"
+    (filter)="onClick($event)"
+  ></app-checkbox>
+</div>
+
+<input />
+<button (click)="onReset()">Reset</button>
+
+<app-report></app-report>
