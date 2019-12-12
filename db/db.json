@@ -1,0 +1,21 @@
+{
+  "reports": [
+    {
+      "id": 1,
+      "title": "first report",
+      "lang": "EN"
+    },
+    {
+      "id": 2,
+      "title": "2 report",
+      "lang": "RU"
+    }
+  ],
+  "en_reports": [
+    {
+      "id": 1,
+      "title": "first report",
+      "lang": "EN"
+    }
+  ]
+}
