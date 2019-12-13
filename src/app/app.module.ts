@@ -4,17 +4,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReportModule } from './report/report.module';
 import { SharedModule } from './shared/shared.module';
 import { LayoutModule } from './layout/layout.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     LayoutModule,
-    ReportModule,
     SharedModule,
     AppRoutingModule
   ],

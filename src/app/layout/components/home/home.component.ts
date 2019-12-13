@@ -1,11 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
+// rxjs
+import { Subscription } from 'rxjs';
+import { debounceTime, map } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+  serchForm: FormGroup;
+  private sub: Subscription;
+
   arr = [
     {
       lang: 'EN',
@@ -17,9 +24,25 @@ export class HomeComponent implements OnInit {
     }
   ];
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.serchForm = this.formBuilder.group({
+      search: ['']
+    });
+
+    this.sub = this.serchForm
+      .get('search')
+      .valueChanges.pipe(
+        debounceTime(1000),
+        map(value => console.log(value))
+      )
+      .subscribe();
+  }
+
+  ngOnDestroy() {
+    this.sub.unsubscribe();
+  }
 
   onClick() {
     console.log('filter');
