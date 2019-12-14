@@ -10,7 +10,9 @@ import { debounceTime, map } from 'rxjs/operators';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  serchForm: FormGroup;
+  searchForm: FormGroup;
+  sortStr: string = 'report';
+  reset;
   private sub: Subscription;
 
   arr = [
@@ -27,15 +29,20 @@ export class HomeComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit() {
-    this.serchForm = this.formBuilder.group({
-      search: ['']
+    this.searchForm = this.formBuilder.group({
+      search: ['report']
     });
 
-    this.sub = this.serchForm
+    //move to on change
+    this.sub = this.searchForm
       .get('search')
       .valueChanges.pipe(
         debounceTime(1000),
-        map(value => console.log(value))
+        map(value => {
+
+          console.log(value);
+          this.sortStr = value;
+        })
       )
       .subscribe();
   }
@@ -46,11 +53,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   onClick() {
     console.log('filter');
-    // this.a = this.reportsService.getReports(`${this.url}/en_reports`).pipe(
-    //   map(i => {
-    //     return i;
-    //   })
-    // );
   }
 
   onReset() {

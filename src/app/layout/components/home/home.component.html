@@ -6,10 +6,10 @@
   ></app-checkbox>
 </div>
 
-<form [formGroup]="serchForm">
-  <input name="search" [(ngModel)]="search" formControlName="search" placeholder="search" />
+<form [formGroup]="searchForm">
+  <input name="search" formControlName="search" placeholder="search" />
 </form>
 
 <button (click)="onReset()">Reset</button>
 
-<app-report></app-report>
+<app-report [sortStr]="sortStr" [reset]="reset"></app-report>
