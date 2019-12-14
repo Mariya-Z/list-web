@@ -12,4 +12,4 @@
 
 <button (click)="onReset()">Reset</button>
 
-<app-report [sortStr]="sortStr" [reset]="reset"></app-report>
+<app-report [sortStr]="sortStr$ | async"></app-report>

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 // rxjs
 import { Observable } from 'rxjs';
+import { UrlBuilderService } from 'src/app/shared';
 
 export interface RequestOptionsInterface {
   headers?: HttpHeaders;
@@ -15,16 +16,16 @@ export interface RequestOptionsInterface {
   body?: any;
 }
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class ReportsService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private urlBuilder: UrlBuilderService) {}
 
   public getReports<T>(
-    endPoint: string,
     options?: RequestOptionsInterface
   ): Observable<T> {
-    return this.http.get<T>(endPoint, options);
+    return this.http.get<T>(this.urlBuilder.getUrl('reports'), options);
   }
 }

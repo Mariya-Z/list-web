@@ -1,10 +1,16 @@
-import { Component, OnInit, Input, OnChanges, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core';
 
 import { ReportsService } from '../../services/reports.service';
 
 // rxjs
-import { map, filter, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
+import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-report',
@@ -13,63 +19,33 @@ import { of } from 'rxjs';
 })
 export class ReportComponent implements OnInit, OnChanges {
   @Input() sortStr: string;
-  @Input() reset;  // boolean
-  sortStr$ = of(this.sortStr);
-  reports$;
-
-  private url = 'http://localhost:3000';
+  reports$: Observable<any>;
+  private sortStr$ = new BehaviorSubject(this.sortStr);
 
   constructor(private reportsService: ReportsService) {}
 
   ngOnInit() {
-    // /apps/list/reports
-    this.reports$ = this.reportsService.getReports(`${this.url}/reports`).pipe(
-      map((reports: any[]) => {
-        // console.log(reports);
-        return reports.filter(r => {
-          if (r.title.includes(this.sortStr)) {
-            return r;
-          }
-        });
-      })
-      // tap(i => console.log(i))
-    );
-    // .subscribe(
-    //   i => console.log(i)
-    // );
-  }
-
-  ngOnChanges() {
-    if (this.sortStr && this.reports$) {
-      console.log('ngOnChanges sortStr=', this.sortStr);
-      this.sortStr$.subscribe(i => {
-        console.log('subscribe');
-        this.reports$.pipe(
-          map((reports: any[]) => {
-            console.log('map');
-            console.log(reports);
-            return reports.filter(r => {
-              if (r.title.includes(this.sortStr)) {
+    console.log('sortStr=', this.sortStr);
+    this.reports$ = combineLatest(
+      this.sortStr$,
+      this.reportsService.getReports<any[]>()
+    ).pipe(
+      map(([search, reports]) => {
+        return search
+          ? reports.filter(r => {
+              if (r.title.includes(search)) {
                 return r;
               }
-            });
-          }),
-          tap(i => console.log(i))
-        );
-      });
-    }
+            })
+          : reports;
+      }),
+      tap(i => console.log(i))
+    );
+  }
 
-    //   this.reports$ = this.reportsService.getReports(`${this.url}/reports`).pipe(
-    //     map((reports: any[]) => {
-    //       console.log(reports);
-    //       return reports.filter(r => {
-    //         if (r.title.includes(this.sortStr)) {
-    //           return r;
-    //         }
-    //       });
-    //     }),
-    //     tap(i => console.log(i))
-    //   );
-    // }
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.hasOwnProperty('sortStr')) {
+      this.sortStr$.next(changes.sortStr.currentValue);
+    }
   }
 }
