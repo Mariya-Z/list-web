@@ -2,20 +2,84 @@
   "reports": [
     {
       "id": 1,
-      "title": "first report",
-      "lang": "EN"
+      "title": "Client rendering, server rendering, pre rendering. The full spectrum of JS website and application performance delivery",
+      "name": "Guillermo Rauch",
+      "level": "intermediate",
+      "lang": "en"
     },
     {
       "id": 2,
-      "title": "2 report",
-      "lang": "RU"
+      "title": "GraphQL-фрагменты на клиенте: История появления, ошибки использования",
+      "name": "Павел Черторогов",
+      "level": "advanced",
+      "lang": "ru"
+    },
+    {
+      "id": 3,
+      "title": "@babel/how-to",
+      "name": "Nicolo Ribaudo",
+      "level": "advanced",
+      "lang": "en"
+    },
+    {
+      "id": 4,
+      "title": "Разработка компилятора для TypeScript на TypeScript на базе LLVM",
+      "name": "Дмитрий Пацура",
+      "level": "hardcore",
+      "lang": "ru"
+    },
+    {
+      "id": 5,
+      "title": "CSS definition syntax",
+      "name": "Роман Дворнов",
+      "level": "hardcore",
+      "lang": "ru"
+    },
+    {
+      "id": 6,
+      "title": "Может ли компьютер молиться на благо всех живых существ? Молитва на JavaScript и WebGL",
+      "name": "Денис Радин",
+      "level": "academic",
+      "lang": "ru"
+    },
+    {
+      "id": 7,
+      "title": "Карьерная эффективность и карьерный путь в ИТ",
+      "name": "Дмитрий Волошин",
+      "level": "academic",
+      "lang": "en"
     }
   ],
-  "en_reports": [
+  "language": [
     {
-      "id": 1,
-      "title": "first report",
-      "lang": "EN"
+      "name": "en",
+      "isChecked": false
+    },
+    {
+      "name": "ru",
+      "isChecked": false
+    }
+  ],
+  "level": [
+    {
+      "value": "hot",
+      "isChecked": false
+    },
+    {
+      "value": "intermediate",
+      "isChecked": false
+    },
+    {
+      "value": "advanced",
+      "isChecked": false
+    },
+    {
+      "value": "hardcore",
+      "isChecked": false
+    },
+    {
+      "value": "academic",
+      "isChecked": false
     }
   ]
 }

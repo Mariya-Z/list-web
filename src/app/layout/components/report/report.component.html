@@ -1,5 +1,3 @@
-<div *ngFor="let report of reports$ | async">
+<ng-container *ngFor="let report of reports$ | async">
   <app-report-view [report]="report"></app-report-view>
-  <!-- <p><b>Title: </b>{{ report.title }}</p>
-  <p>{{ report.lang }}</p> -->
-</div>
+</ng-container>

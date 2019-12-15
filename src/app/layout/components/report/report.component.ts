@@ -6,7 +6,8 @@ import {
   SimpleChanges
 } from '@angular/core';
 
-import { ReportsService } from '../../services/reports.service';
+import { ReportsService } from '../../services';
+import { Report } from '../../interface';
 
 // rxjs
 import { map, tap } from 'rxjs/operators';
@@ -19,7 +20,7 @@ import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 })
 export class ReportComponent implements OnInit, OnChanges {
   @Input() sortStr: string;
-  reports$: Observable<any>;
+  reports$: Observable<Report[]>;
   private sortStr$ = new BehaviorSubject(this.sortStr);
 
   constructor(private reportsService: ReportsService) {}
