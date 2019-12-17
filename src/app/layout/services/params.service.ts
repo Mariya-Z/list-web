@@ -9,14 +9,14 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class LevelService {
+export class ParamsService {
 
   constructor(
     private http: HttpClient,
     private urlBuilder: UrlBuilderService
-  ) {}
+  ) { }
 
-  public getLevels<T>(): Observable<T> {
-    return this.http.get<T>(this.urlBuilder.getUrl('level'));
+  public getParam<T>(p: string): Observable<T> {
+    return this.http.get<T>(this.urlBuilder.getUrl(p));
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { LanguageService, LevelService } from '../../services';
+import { DataService } from '../../services';
 import { Language, Level } from '../../interface';
 
 // rxjs
@@ -15,15 +15,14 @@ import { debounceTime, tap, distinctUntilChanged, map } from 'rxjs/operators';
 export class HomeComponent implements OnInit {
   searchForm: FormGroup;
   filterStr$: Observable<string>;
-  language$: Observable<Language[]>;
-  level$: Observable<Level[]>;
+  language$; // : Observable<Language[]>;
+  level$; // : Observable<Level[]>;
   selectedLevels: string[];
   selectedLangs: string[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private languageService: LanguageService,
-    private levelService: LevelService
+    private dataService: DataService
   ) {}
 
   ngOnInit() {
@@ -37,8 +36,8 @@ export class HomeComponent implements OnInit {
       tap(i => console.log(i))
     );
 
-    this.language$ = this.languageService.getLanguages();
-    this.level$ = this.levelService.getLevels();
+    this.language$ = this.dataService.getLanguages();
+    this.level$ = this.dataService.getLevels();
   }
 
   onLangClick(languages: string[]) {
