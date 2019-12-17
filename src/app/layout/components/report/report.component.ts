@@ -19,17 +19,17 @@ import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
   styleUrls: ['./report.component.scss']
 })
 export class ReportComponent implements OnInit, OnChanges {
-  @Input() sortStr: string;
+  @Input() filterStr: string;
   @Input() level: string[];
   @Input() lang: string[];
   reports$: Observable<Report[]>;
-  private sortStr$ = new BehaviorSubject(this.sortStr);
+  private filterStr$ = new BehaviorSubject(this.filterStr);
 
   constructor(private reportsService: ReportsService) {}
 
   ngOnInit() {
     this.reports$ = combineLatest(
-      this.sortStr$,
+      this.filterStr$,
       this.reportsService.getReports<any[]>()
     ).pipe(
       map(([search, reports]) => {
@@ -45,8 +45,8 @@ export class ReportComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes.hasOwnProperty('sortStr')) {
-      this.sortStr$.next(changes.sortStr.currentValue);
+    if (changes.hasOwnProperty('filterStr')) {
+      this.filterStr$.next(changes.filterStr.currentValue);
     }
   }
 }

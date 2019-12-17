@@ -12,16 +12,15 @@ import { map } from 'rxjs/operators';
 export class FilterReportsPipe implements PipeTransform {
   transform(
     reports: Observable<Report[]>,
-    sortBy: string[],
+    query: string[],
     val: string
   ) {
-    console.log('sortBy', sortBy);
     return reports.pipe(
       map((r: Report[]) => {
-        if (!sortBy || sortBy.length === 0) {
+        if (!query || query.length === 0) {
           return r;
         }
-        return r.filter(rep => sortBy.includes(rep[val]));
+        return r.filter(rep => query.includes(rep[val]));
       })
     );
   }

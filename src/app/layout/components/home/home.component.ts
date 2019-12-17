@@ -6,7 +6,7 @@ import { Language, Level } from '../../interface';
 
 // rxjs
 import { Observable } from 'rxjs';
-import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, tap, distinctUntilChanged, map } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,7 +14,7 @@ import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
   searchForm: FormGroup;
-  sortStr$: Observable<string>;
+  filterStr$: Observable<string>;
   language$: Observable<Language[]>;
   level$: Observable<Level[]>;
   selectedLevels: string[];
@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
       search: ['']
     });
 
-    this.sortStr$ = this.searchForm.get('search').valueChanges.pipe(
+    this.filterStr$ = this.searchForm.get('search').valueChanges.pipe(
       debounceTime(500),
       distinctUntilChanged(),
       tap(i => console.log(i))
