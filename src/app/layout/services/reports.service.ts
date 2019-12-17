@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
+import { UrlBuilderService } from 'src/app/shared';
+
 // rxjs
 import { Observable } from 'rxjs';
-import { UrlBuilderService } from 'src/app/shared';
 
 export interface RequestOptionsInterface {
   headers?: HttpHeaders;
@@ -24,7 +25,7 @@ export class ReportsService {
     private urlBuilder: UrlBuilderService
   ) {}
 
-  public getReports<T>(options?: RequestOptionsInterface): Observable<T> {
+  getReports<T>(options?: RequestOptionsInterface): Observable<T> {
     return this.http.get<T>(this.urlBuilder.getUrl('reports'), options);
   }
 }

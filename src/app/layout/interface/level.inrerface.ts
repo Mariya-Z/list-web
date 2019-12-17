@@ -1,4 +1,4 @@
 export interface Level {
-  value: string;
+  name: string;
   isChecked: boolean;
 }

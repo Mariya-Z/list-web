@@ -17,17 +17,8 @@ export class HomeComponent implements OnInit {
   sortStr$: Observable<string>;
   language$: Observable<Language[]>;
   level$: Observable<Level[]>;
-
-  arr = [
-    {
-      lang: 'EN',
-      isChecked: true
-    },
-    {
-      lang: 'RU',
-      isChecked: false
-    }
-  ];
+  selectedLevels: string[];
+  selectedLangs: string[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -37,11 +28,11 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
-      search: ['first']
+      search: ['']
     });
 
     this.sortStr$ = this.searchForm.get('search').valueChanges.pipe(
-      debounceTime(1000),
+      debounceTime(500),
       distinctUntilChanged(),
       tap(i => console.log(i))
     );
@@ -50,11 +41,17 @@ export class HomeComponent implements OnInit {
     this.level$ = this.levelService.getLevels();
   }
 
-  onClick() {
-    console.log('filter');
+  onLangClick(languages: string[]) {
+    this.selectedLangs = languages;
+  }
+
+  onLevelClick(levels: string[]) {
+    this.selectedLevels = levels;
   }
 
   onReset() {
     this.searchForm.setValue({ search: '' });
+    this.selectedLangs = [];
+    this.selectedLevels = [];
   }
 }

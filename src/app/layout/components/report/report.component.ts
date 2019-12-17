@@ -10,7 +10,7 @@ import { ReportsService } from '../../services';
 import { Report } from '../../interface';
 
 // rxjs
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
@@ -20,13 +20,14 @@ import { combineLatest, BehaviorSubject, Observable } from 'rxjs';
 })
 export class ReportComponent implements OnInit, OnChanges {
   @Input() sortStr: string;
+  @Input() level: string[];
+  @Input() lang: string[];
   reports$: Observable<Report[]>;
   private sortStr$ = new BehaviorSubject(this.sortStr);
 
   constructor(private reportsService: ReportsService) {}
 
   ngOnInit() {
-    console.log('sortStr=', this.sortStr);
     this.reports$ = combineLatest(
       this.sortStr$,
       this.reportsService.getReports<any[]>()
@@ -39,8 +40,7 @@ export class ReportComponent implements OnInit, OnChanges {
               }
             })
           : reports;
-      }),
-      tap(i => console.log(i))
+      })
     );
   }
 

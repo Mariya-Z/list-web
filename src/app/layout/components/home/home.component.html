@@ -1,19 +1,13 @@
 <div>
-  <span *ngFor="let lang of language$ | async">
-    <app-checkbox
-      [name]="lang.name"
-      [isChecked]="lang.isChecked"
-      (filter)="onClick($event)"
-    ></app-checkbox>
-  </span>
+  <app-checkbox
+    [data]="language$ | async"
+    (filter)="onLangClick($event)"
+  ></app-checkbox>
 
-  <span *ngFor="let l of level$ | async">
-    <app-checkbox
-      [name]="l.value"
-      [isChecked]="l.isChecked"
-      (filter)="onClick($event)"
-    ></app-checkbox>
-  </span>
+  <app-checkbox
+    [data]="level$ | async"
+    (filter)="onLevelClick($event)"
+  ></app-checkbox>
 
   <form [formGroup]="searchForm">
     <input name="search" formControlName="search" placeholder="search" />
@@ -22,4 +16,9 @@
   <button (click)="onReset()">Reset</button>
 </div>
 
-<app-report [sortStr]="sortStr$ | async" class="cards"></app-report>
+<app-report
+  [sortStr]="sortStr$ | async"
+  class="cards"
+  [level]="selectedLevels"
+  [lang]="selectedLangs"
+></app-report>

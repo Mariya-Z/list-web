@@ -11,10 +11,12 @@ import { Observable } from 'rxjs';
 })
 export class LevelService {
 
-  constructor(private http: HttpClient, private urlBuilder: UrlBuilderService) {}
+  constructor(
+    private http: HttpClient,
+    private urlBuilder: UrlBuilderService
+  ) {}
 
-  public getLevels<T>(
-  ): Observable<T> {
+  public getLevels<T>(): Observable<T> {
     return this.http.get<T>(this.urlBuilder.getUrl('level'));
   }
 }

@@ -62,23 +62,23 @@
   ],
   "level": [
     {
-      "value": "hot",
+      "name": "hot",
       "isChecked": false
     },
     {
-      "value": "intermediate",
+      "name": "intermediate",
       "isChecked": false
     },
     {
-      "value": "advanced",
+      "name": "advanced",
       "isChecked": false
     },
     {
-      "value": "hardcore",
+      "name": "hardcore",
       "isChecked": false
     },
     {
-      "value": "academic",
+      "name": "academic",
       "isChecked": false
     }
   ]
