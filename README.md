@@ -1,27 +1,29 @@
-# ListWeb
+# REPORTS LIST ANGULAR
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.19.
+## 1 Install angular cli
 
-## Development server
+    $ npm uninstall -g @angular/cli
+    $ npm cache clean
+    $ npm install -g @angular/cli
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- On Windows run this using administrator
+- On Mac use sudo \$ sudo \<command>
 
-## Code scaffolding
+## 2 Install JSON Server & Concurrently
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    $ npm install -g json-server
+    $ npm install concurrently -D
 
-## Build
+## 3 Install dependencies
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+    $ npm install
 
-## Running unit tests
+## 4 Run
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+    $ npm run dev
 
-## Running end-to-end tests
+## 5 Project Structure
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+    - db/db.json - fake BackEnd, source for json-server
+    - e2e -  place for end-2-end tests
+    - src - place for source files

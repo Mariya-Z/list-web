@@ -1,4 +1,10 @@
-<label>
-  <input type="checkbox" [checked]="isChecked" (click)="onClick()" />
-  {{ name }}
-</label>
+<span *ngFor="let d of data">
+  <label>
+    <input
+      type="checkbox"
+      [(ngModel)]="d.isChecked"
+      (change)="onChange($event)"
+    />
+    {{ d.name | uppercase }}
+  </label>
+</span>

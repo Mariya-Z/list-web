@@ -1,45 +1,57 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
+import { LanguageService, LevelService } from '../../services';
+import { Language, Level } from '../../interface';
+
+// rxjs
+import { Observable } from 'rxjs';
+import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  arr = [
-    {
-      lang: 'EN',
-      isChecked: true
-    },
-    {
-      lang: 'RU',
-      isChecked: false
-    }
-  ];
+  searchForm: FormGroup;
+  sortStr$: Observable<string>;
+  language$: Observable<Language[]>;
+  level$: Observable<Level[]>;
+  selectedLevels: string[];
+  selectedLangs: string[];
 
-  constructor() {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private languageService: LanguageService,
+    private levelService: LevelService
+  ) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.searchForm = this.formBuilder.group({
+      search: ['']
+    });
 
-  onClick() {
-    console.log('filter');
-    // this.a = this.reportsService.getReports(`${this.url}/en_reports`).pipe(
-    //   map(i => {
-    //     return i;
-    //   })
-    // );
+    this.sortStr$ = this.searchForm.get('search').valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      tap(i => console.log(i))
+    );
+
+    this.language$ = this.languageService.getLanguages();
+    this.level$ = this.levelService.getLevels();
+  }
+
+  onLangClick(languages: string[]) {
+    this.selectedLangs = languages;
+  }
+
+  onLevelClick(levels: string[]) {
+    this.selectedLevels = levels;
   }
 
   onReset() {
-    // and remove all checkboxes
-    this.arr.forEach(element => {
-      element.isChecked = false;
-    });
-    // this.a = this.reportsService.getReports(`${this.url}/reports`).pipe(
-    //   map(i => {
-    //     return i;
-    //   })
-    // );
-    console.log('onReset arr=', this.arr);
+    this.searchForm.setValue({ search: '' });
+    this.selectedLangs = [];
+    this.selectedLevels = [];
   }
 }

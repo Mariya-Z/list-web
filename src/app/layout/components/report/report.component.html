@@ -1,0 +1,10 @@
+<ng-container
+  *ngFor="
+    let report of reports$
+      | filterReports: level:'level'
+      | filterReports: lang:'lang'
+      | async
+  "
+>
+  <app-report-view [report]="report"></app-report-view>
+</ng-container>

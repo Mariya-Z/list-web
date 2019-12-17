@@ -1,12 +1,24 @@
-<div *ngFor="let i of arr">
+<div>
   <app-checkbox
-    [name]="i.lang"
-    [isChecked]="i.isChecked"
-    (filter)="onClick($event)"
+    [data]="language$ | async"
+    (filter)="onLangClick($event)"
   ></app-checkbox>
+
+  <app-checkbox
+    [data]="level$ | async"
+    (filter)="onLevelClick($event)"
+  ></app-checkbox>
+
+  <form [formGroup]="searchForm">
+    <input name="search" formControlName="search" placeholder="search" />
+  </form>
+
+  <button (click)="onReset()">Reset</button>
 </div>
 
-<input />
-<button (click)="onReset()">Reset</button>
-
-<app-report></app-report>
+<app-report
+  [sortStr]="sortStr$ | async"
+  class="cards"
+  [level]="selectedLevels"
+  [lang]="selectedLangs"
+></app-report>
