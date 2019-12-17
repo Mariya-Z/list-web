@@ -17,7 +17,6 @@ export class DataService {
   constructor(private injector: Injector) {}
 
   getLevels() {
-    console.log('getLevels');
     return this.paramsService.getParam('level');
   }
 
