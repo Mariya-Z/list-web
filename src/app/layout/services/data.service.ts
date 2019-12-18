@@ -16,7 +16,6 @@ export class DataService {
     private storage: StorageService<Data>
   ) {}
 
-
   getData(): Observable<Array<Data>> {
     return this.storage
       .getData()
@@ -44,9 +43,9 @@ export class DataService {
     );
   }
 
-  // updateData(data: Data, key: number) {
-  //   this.storage.updateData(data, key);
-  // }
+  updateData(data: Data, key: number) {
+    this.storage.updateData(data, key);
+  }
 
   // reset() {
   //   return this.storage.getData();

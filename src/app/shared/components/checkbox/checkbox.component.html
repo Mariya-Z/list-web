@@ -1,9 +1,9 @@
-<span *ngFor="let d of data">
+<span *ngFor="let d of data; let i = index">
   <label>
     <input
       type="checkbox"
       [(ngModel)]="d.isChecked"
-      (change)="onChange($event)"
+      (change)="onChange(i)"
     />
     {{ d.name | uppercase }}
   </label>

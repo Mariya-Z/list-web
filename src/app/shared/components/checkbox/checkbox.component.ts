@@ -8,7 +8,7 @@ import { Data } from 'src/app/layout';
 })
 export class CheckboxComponent {
   @Input() data: Data[];
-  @Output() filter: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Output() filter: EventEmitter<{data, index}> = new EventEmitter<any>();
 
   get selectedCheckbox() {
     return this.data.reduce((result, item) => {
@@ -19,7 +19,7 @@ export class CheckboxComponent {
     }, []);
   }
 
-  onChange() {
-    this.filter.emit(this.selectedCheckbox);
+  onChange(index) {
+    this.filter.emit({data: this.data[index], index: index});
   }
 }

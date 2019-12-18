@@ -17,7 +17,7 @@ export class HomeComponent implements OnInit {
   filterStr$: Observable<string>;
   language$: Observable<Data[]>;
   level$: Observable<Data[]>;
-  selectedLevels: string[];
+  selectedLevel$;
   selectedLangs: string[];
 
   constructor(
@@ -30,25 +30,27 @@ export class HomeComponent implements OnInit {
       search: ['']
     });
 
-    this.filterStr$ = this.searchForm
-      .get('search')
-      .valueChanges.pipe(debounceTime(500), distinctUntilChanged());
+    this.filterStr$ = this.searchForm.get('search').valueChanges.pipe(
+      debounceTime(500),
+      distinctUntilChanged()
+    );
 
     // this.language$ = this.dataService.getData('language');
     this.level$ = this.dataService.getData();
+    this.selectedLevel$ = this.dataService.getSelected();
   }
 
   onLangClick(languages: string[]) {
     this.selectedLangs = languages;
   }
 
-  onLevelClick(levels: string[]) {
-    this.selectedLevels = levels;
+  onLevelClick(newData) {
+    console.log('newData = ', newData);
+    this.dataService.updateData(newData.data, newData.index);
   }
 
   onReset() {
     this.searchForm.setValue({ search: '' });
     this.selectedLangs = [];
-    this.selectedLevels = [];
   }
 }
