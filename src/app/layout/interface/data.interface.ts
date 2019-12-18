@@ -1,4 +1,4 @@
-export interface Language {
+export interface Data {
   name: string;
   isChecked: boolean;
 }

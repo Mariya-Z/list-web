@@ -1,3 +1,2 @@
-export * from './language.interface';
-export * from './level.inrerface';
+export * from './data.interface';
 export * from './report.interface';

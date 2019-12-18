@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { DataService } from '../../services';
-import { Language, Level } from '../../interface';
+import { Data } from '../../interface';
 
 // rxjs
 import { Observable } from 'rxjs';
