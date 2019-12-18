@@ -15,8 +15,8 @@ import { debounceTime, tap, distinctUntilChanged, map } from 'rxjs/operators';
 export class HomeComponent implements OnInit {
   searchForm: FormGroup;
   filterStr$: Observable<string>;
-  language$; // : Observable<Language[]>;
-  level$; // : Observable<Level[]>;
+  language$: Observable<Data[]>;
+  level$: Observable<Data[]>;
   selectedLevels: string[];
   selectedLangs: string[];
 
@@ -30,14 +30,12 @@ export class HomeComponent implements OnInit {
       search: ['']
     });
 
-    this.filterStr$ = this.searchForm.get('search').valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged(),
-      tap(i => console.log(i))
-    );
+    this.filterStr$ = this.searchForm
+      .get('search')
+      .valueChanges.pipe(debounceTime(500), distinctUntilChanged());
 
-    this.language$ = this.dataService.getLanguages();
-    this.level$ = this.dataService.getLevels();
+    // this.language$ = this.dataService.getData('language');
+    this.level$ = this.dataService.getData();
   }
 
   onLangClick(languages: string[]) {

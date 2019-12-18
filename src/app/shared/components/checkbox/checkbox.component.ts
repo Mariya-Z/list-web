@@ -1,5 +1,5 @@
 import { Component, Output, Input, EventEmitter } from '@angular/core';
-import { Language, Level } from 'src/app/layout';
+import { Data } from 'src/app/layout';
 
 @Component({
   selector: 'app-checkbox',
@@ -7,7 +7,7 @@ import { Language, Level } from 'src/app/layout';
   styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent {
-  @Input() data: Language[] | Level[];
+  @Input() data: Data[];
   @Output() filter: EventEmitter<string[]> = new EventEmitter<string[]>();
 
   get selectedCheckbox() {
