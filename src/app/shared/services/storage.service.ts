@@ -28,4 +28,8 @@ export class StorageService<T> {
     ];
     this.data$.next(next);
   }
+
+  resetData(data: Array<T>) {
+    this.data$.next(data);
+  }
 }

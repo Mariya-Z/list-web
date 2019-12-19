@@ -4,8 +4,8 @@ import { DataBridgeService, StorageService } from '../../shared/services';
 import { Data } from '../interface';
 
 // rxjs
-import { take, switchMap, tap, map, filter } from 'rxjs/operators';
 import { iif, of, Observable } from 'rxjs';
+import { take, switchMap, tap, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +47,16 @@ export class DataService {
     this.storage.updateData(data, key);
   }
 
-  // reset() {
-  //   return this.storage.getData();
-  // }
+  reset() {
+    this.storage.getData().pipe(
+      take(1),
+      map(data => data.map(d => {
+        d.isChecked = false;
+        return d;
+      }))
+    ).subscribe(data => this.storage.setData(data));
+  }
+
 
   private getDataFromRemote() {
     return this.dataBridge

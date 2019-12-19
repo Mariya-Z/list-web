@@ -51,6 +51,7 @@ export class HomeComponent implements OnInit {
 
   onReset() {
     this.searchForm.setValue({ search: '' });
+    this.dataService.reset();
     this.selectedLangs = [];
   }
 }
