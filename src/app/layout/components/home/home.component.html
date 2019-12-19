@@ -17,8 +17,8 @@
 </div>
 
 <app-report
-  [sortStr]="sortStr$ | async"
+  [filterStr]="filterStr$ | async"
   class="cards"
-  [level]="selectedLevels"
+  [level]="selectedLevel$ | async"
   [lang]="selectedLangs"
 ></app-report>

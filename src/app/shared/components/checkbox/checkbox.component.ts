@@ -1,5 +1,5 @@
 import { Component, Output, Input, EventEmitter } from '@angular/core';
-import { Language, Level } from 'src/app/layout';
+import { Data } from 'src/app/layout';
 
 @Component({
   selector: 'app-checkbox',
@@ -7,8 +7,8 @@ import { Language, Level } from 'src/app/layout';
   styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent {
-  @Input() data: Language[] | Level[];
-  @Output() filter: EventEmitter<string[]> = new EventEmitter<string[]>();
+  @Input() data: Data[];
+  @Output() filter: EventEmitter<{data, index}> = new EventEmitter<any>();
 
   get selectedCheckbox() {
     return this.data.reduce((result, item) => {
@@ -19,7 +19,7 @@ export class CheckboxComponent {
     }, []);
   }
 
-  onChange() {
-    this.filter.emit(this.selectedCheckbox);
+  onChange(index) {
+    this.filter.emit({data: this.data[index], index: index});
   }
 }

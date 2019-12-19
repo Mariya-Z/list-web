@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { LanguageService, LevelService } from '../../services';
-import { Language, Level } from '../../interface';
+import { DataService } from '../../services';
+import { Data } from '../../interface';
 
 // rxjs
 import { Observable } from 'rxjs';
-import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
+import { debounceTime, tap, distinctUntilChanged, map } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,16 +14,15 @@ import { debounceTime, tap, distinctUntilChanged } from 'rxjs/operators';
 })
 export class HomeComponent implements OnInit {
   searchForm: FormGroup;
-  sortStr$: Observable<string>;
-  language$: Observable<Language[]>;
-  level$: Observable<Level[]>;
-  selectedLevels: string[];
+  filterStr$: Observable<string>;
+  language$: Observable<Data[]>;
+  level$: Observable<Data[]>;
+  selectedLevel$;
   selectedLangs: string[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private languageService: LanguageService,
-    private levelService: LevelService
+    private dataService: DataService
   ) {}
 
   ngOnInit() {
@@ -31,27 +30,28 @@ export class HomeComponent implements OnInit {
       search: ['']
     });
 
-    this.sortStr$ = this.searchForm.get('search').valueChanges.pipe(
+    this.filterStr$ = this.searchForm.get('search').valueChanges.pipe(
       debounceTime(500),
-      distinctUntilChanged(),
-      tap(i => console.log(i))
+      distinctUntilChanged()
     );
 
-    this.language$ = this.languageService.getLanguages();
-    this.level$ = this.levelService.getLevels();
+    // this.language$ = this.dataService.getData('language');
+    this.level$ = this.dataService.getData();
+    this.selectedLevel$ = this.dataService.getSelected();
   }
 
   onLangClick(languages: string[]) {
     this.selectedLangs = languages;
   }
 
-  onLevelClick(levels: string[]) {
-    this.selectedLevels = levels;
+  onLevelClick(newData) {
+    console.log('newData = ', newData);
+    this.dataService.updateData(newData.data, newData.index);
   }
 
   onReset() {
     this.searchForm.setValue({ search: '' });
+    this.dataService.reset();
     this.selectedLangs = [];
-    this.selectedLevels = [];
   }
 }
