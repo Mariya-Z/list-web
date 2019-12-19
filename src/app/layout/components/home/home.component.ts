@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { DataService } from '../../services';
 import { Data } from '../../interface';
+import { ChangedData } from '../../../shared';
 
 // rxjs
 import { Observable } from 'rxjs';
@@ -43,9 +44,7 @@ export class HomeComponent implements OnInit {
   onLangClick(languages: string[]) {
     this.selectedLangs = languages;
   }
-
-  onLevelClick(newData) {
-    console.log('newData = ', newData);
+  onLevelClick(newData: ChangedData) {
     this.dataService.updateData(newData.data, newData.index);
   }
 
