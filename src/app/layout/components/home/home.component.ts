@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-import { DataService } from '../../services';
+import { LanguageService, LevelService } from '../../services';
 import { Data } from '../../interface';
 import { ChangedData } from '../../../shared';
 
@@ -19,11 +19,12 @@ export class HomeComponent implements OnInit {
   language$: Observable<Data[]>;
   level$: Observable<Data[]>;
   selectedLevel$;
-  selectedLangs: string[];
+  selectedLanguage$;
 
   constructor(
     private formBuilder: FormBuilder,
-    private dataService: DataService
+    private levelService: LevelService,
+    private languageService: LanguageService
   ) {}
 
   ngOnInit() {
@@ -31,26 +32,26 @@ export class HomeComponent implements OnInit {
       search: ['']
     });
 
-    this.filterStr$ = this.searchForm.get('search').valueChanges.pipe(
-      debounceTime(500),
-      distinctUntilChanged()
-    );
+    this.filterStr$ = this.searchForm
+      .get('search')
+      .valueChanges.pipe(debounceTime(500), distinctUntilChanged());
 
-    // this.language$ = this.dataService.getData('language');
-    this.level$ = this.dataService.getData();
-    this.selectedLevel$ = this.dataService.getSelected();
+    this.level$ = this.levelService.getData();
+    this.selectedLevel$ = this.levelService.getSelected();
+    this.language$ = this.languageService.getData();
+    this.selectedLanguage$ = this.languageService.getSelected();
   }
 
-  onLangClick(languages: string[]) {
-    this.selectedLangs = languages;
+  onLangClick(newData: ChangedData) {
+    this.languageService.updateData(newData.data, newData.index);
   }
   onLevelClick(newData: ChangedData) {
-    this.dataService.updateData(newData.data, newData.index);
+    this.levelService.updateData(newData.data, newData.index);
   }
 
   onReset() {
     this.searchForm.setValue({ search: '' });
-    this.dataService.reset();
-    this.selectedLangs = [];
+    this.levelService.reset();
+    this.languageService.reset();
   }
 }

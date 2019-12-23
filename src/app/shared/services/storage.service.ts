@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core';
 
+import { StorageInterface } from '../interfaces/storage-service.interface';
+
 // rxjs
 import { BehaviorSubject } from 'rxjs';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class StorageService<T> {
+@Injectable()
+export class StorageService<T> implements StorageInterface<Array<T>, T> {
   private data$: BehaviorSubject<Array<T> | null> = new BehaviorSubject(null);
 
   constructor() {}
 
   getData() {
-    return this.data$;
+    return this.data$.asObservable();
   }
 
   setData(value: Array<T>) {

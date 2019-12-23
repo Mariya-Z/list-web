@@ -1,21 +1,20 @@
 import { Injectable, Inject } from '@angular/core';
-import { DataBridgeService, StorageService } from '../../shared/services';
 
 import { Data } from '../interface';
+import { DataBridgeService, StorageService } from '../../shared/services';
+import { LANGUAGE_STORAGE_TOKEN } from '../providers';
 
 // rxjs
 import { iif, of, Observable } from 'rxjs';
 import { take, switchMap, tap, map } from 'rxjs/operators';
-import { LEVEL_STORAGE_TOKEN } from '../layout.module';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class LanguageService {
   constructor(
-    @Inject(LEVEL_STORAGE_TOKEN) private path: string,
-    private dataBridge: DataBridgeService,
-    private storage: StorageService<Data>
+    @Inject(LANGUAGE_STORAGE_TOKEN) private storage: StorageService<Data>,
+    private dataBridge: DataBridgeService
   ) {}
 
   getData(): Observable<Array<Data>> {
@@ -23,11 +22,7 @@ export class DataService {
       .getData()
       .pipe(
         switchMap(data =>
-          iif(
-            () => data === null,
-            this.getDataFromRemote(),
-            of(data)
-          )
+          iif(() => data === null, this.getDataFromRemote(), of(data))
         )
       );
   }
@@ -50,19 +45,23 @@ export class DataService {
   }
 
   reset() {
-    this.storage.getData().pipe(
-      take(1),
-      map(data => data.map(d => {
-        d.isChecked = false;
-        return d;
-      }))
-    ).subscribe(data => this.storage.setData(data));
+    this.storage
+      .getData()
+      .pipe(
+        take(1),
+        map(data =>
+          data.map(d => {
+            d.isChecked = false;
+            return d;
+          })
+        )
+      )
+      .subscribe(data => this.storage.setData(data));
   }
-
 
   private getDataFromRemote() {
     return this.dataBridge
-      .getData<Array<Data>>(this.path)
+      .getData<Array<Data>>('language')
       .pipe(tap(data => this.storage.setData(data)));
   }
 }

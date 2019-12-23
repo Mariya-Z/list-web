@@ -7,10 +7,7 @@ import { HomeComponent, ReportComponent } from './components';
 import { ReportViewComponent } from './components/report/report-view/report-view.component';
 import { FilterReportsPipe } from './pipes/filter-reports.pipe';
 
-export const LANGUAGE_STORAGE_TOKEN = new InjectionToken(
-  'LANGUAGE_STORAGE_TOKEN'
-);
-export const LEVEL_STORAGE_TOKEN = new InjectionToken('LEVEL_STORAGE_TOKEN');
+import { LanguageProvider, LevelProvider } from './providers';
 
 @NgModule({
   declarations: [
@@ -20,16 +17,7 @@ export const LEVEL_STORAGE_TOKEN = new InjectionToken('LEVEL_STORAGE_TOKEN');
     FilterReportsPipe
   ],
   imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule],
-  providers: [
-    {
-      provide: LEVEL_STORAGE_TOKEN,
-      useValue: 'level'
-    },
-    {
-      provide: LANGUAGE_STORAGE_TOKEN,
-      useValue: 'language'
-    }
-  ],
+  providers: [LanguageProvider, LevelProvider],
   exports: [HomeComponent]
 })
 export class LayoutModule {}
