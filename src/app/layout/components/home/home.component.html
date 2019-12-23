@@ -1,4 +1,4 @@
-<div>
+<div class="toolbox">
   <app-checkbox
     [data]="language$ | async"
     (filter)="onLangClick($event)"
@@ -20,5 +20,5 @@
   [filterStr]="filterStr$ | async"
   class="cards"
   [level]="selectedLevel$ | async"
-  [lang]="selectedLangs"
+  [lang]="selectedLanguage$ | async"
 ></app-report>

@@ -1,3 +1,8 @@
+.toolbox {
+  display: flex;
+  justify-content: space-between;
+}
+
 .cards {
   display: flex;
   flex-wrap: wrap;
