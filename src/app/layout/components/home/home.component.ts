@@ -7,7 +7,7 @@ import { ChangedData } from '../../../shared';
 
 // rxjs
 import { Observable } from 'rxjs';
-import { debounceTime, tap, distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -18,8 +18,8 @@ export class HomeComponent implements OnInit {
   filterStr$: Observable<string>;
   language$: Observable<Data[]>;
   level$: Observable<Data[]>;
-  selectedLevel$;
-  selectedLanguage$;
+  selectedLevel$: Observable<string[]>;
+  selectedLanguage$: Observable<string[]>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -42,14 +42,14 @@ export class HomeComponent implements OnInit {
     this.selectedLanguage$ = this.languageService.getSelected();
   }
 
-  onLangClick(newData: ChangedData) {
+  onLangClick(newData: ChangedData): void {
     this.languageService.updateData(newData.data, newData.index);
   }
-  onLevelClick(newData: ChangedData) {
+  onLevelClick(newData: ChangedData): void {
     this.levelService.updateData(newData.data, newData.index);
   }
 
-  onReset() {
+  onReset(): void {
     this.searchForm.setValue({ search: '' });
     this.levelService.reset();
     this.languageService.reset();
