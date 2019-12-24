@@ -22,7 +22,11 @@ export class LevelService {
       .getData()
       .pipe(
         switchMap(data =>
-          iif(() => data === null, this.getDataFromRemote(), of(data))
+          iif(
+            () => data === null,
+            this.getDataFromRemote(),
+            of(data)
+          )
         )
       );
   }
