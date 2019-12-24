@@ -40,11 +40,11 @@ export class LevelService {
     );
   }
 
-  updateData(data: Data, key: number) {
+  updateData(data: Data, key: number): void {
     this.storage.updateData(data, key);
   }
 
-  reset() {
+  reset(): void {
     this.storage
       .getData()
       .pipe(
@@ -59,7 +59,7 @@ export class LevelService {
       .subscribe(data => this.storage.setData(data));
   }
 
-  private getDataFromRemote() {
+  private getDataFromRemote(): Observable<Array<Data>> {
     return this.dataBridge
       .getData<Array<Data>>('level')
       .pipe(tap(data => this.storage.setData(data)));

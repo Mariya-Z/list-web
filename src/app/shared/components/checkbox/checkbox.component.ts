@@ -15,7 +15,7 @@ export class CheckboxComponent {
   @Input() data: Data[];
   @Output() filter: EventEmitter<ChangedData> = new EventEmitter<ChangedData>();
 
-  onChange(index: number) {
+  onChange(index: number): void {
     this.filter.emit({data: this.data[index], index});
   }
 }

@@ -1,28 +1,18 @@
 # REPORTS LIST ANGULAR
 
-## 1 Install angular cli
+## 1 Install list-web project
 
-    $ npm uninstall -g @angular/cli
-    $ npm cache clean
-    $ npm install -g @angular/cli
+    $ git clone https://github.com/Mariya-Z/list-web.git
 
-- On Windows run this using administrator
-- On Mac use sudo \$ sudo \<command>
-
-## 2 Install JSON Server & Concurrently
-
-    $ npm install -g json-server
-    $ npm install concurrently -D
-
-## 3 Install dependencies
+## 2 Install dependencies
 
     $ npm install
 
-## 4 Run
+## 3 Run
 
     $ npm run dev
 
-## 5 Project Structure
+## 4 Project Structure
 
     - db/db.json - fake BackEnd, source for json-server
     - e2e -  place for end-2-end tests

@@ -12,7 +12,7 @@ export class UrlBuilderService {
     this.endPoint = environment.apiUrl;
   }
 
-  getUrl(...args) {
+  getUrl(...args: string[]) {
     const url = args.join('/');
     return `${this.endPoint}/${url}`;
   }
