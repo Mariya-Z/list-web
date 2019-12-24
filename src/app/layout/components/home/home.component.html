@@ -1,4 +1,4 @@
-<div>
+<div class="toolbox">
   <app-checkbox
     [data]="language$ | async"
     (filter)="onLangClick($event)"
@@ -13,12 +13,12 @@
     <input name="search" formControlName="search" placeholder="search" />
   </form>
 
-  <button (click)="onReset()">Reset</button>
+  <button (click)="onReset()">reset filters</button>
 </div>
 
 <app-report
   [filterStr]="filterStr$ | async"
   class="cards"
   [level]="selectedLevel$ | async"
-  [lang]="selectedLangs"
+  [lang]="selectedLanguage$ | async"
 ></app-report>

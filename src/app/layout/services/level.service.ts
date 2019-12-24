@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import { DataBridgeService, StorageService } from '../../shared/services';
+import { Injectable, Inject } from '@angular/core';
 
 import { Data } from '../interface';
+import { DataBridgeService, StorageService } from '../../shared/services';
+import { LEVEL_STORAGE_TOKEN } from '../providers';
 
 // rxjs
 import { iif, of, Observable } from 'rxjs';
@@ -10,10 +11,10 @@ import { take, switchMap, tap, map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
+export class LevelService {
   constructor(
-    private dataBridge: DataBridgeService,
-    private storage: StorageService<Data>
+    @Inject(LEVEL_STORAGE_TOKEN) private storage: StorageService<Data>,
+    private dataBridge: DataBridgeService
   ) {}
 
   getData(): Observable<Array<Data>> {
@@ -43,22 +44,26 @@ export class DataService {
     );
   }
 
-  updateData(data: Data, key: number) {
+  updateData(data: Data, key: number): void {
     this.storage.updateData(data, key);
   }
 
-  reset() {
-    this.storage.getData().pipe(
-      take(1),
-      map(data => data.map(d => {
-        d.isChecked = false;
-        return d;
-      }))
-    ).subscribe(data => this.storage.setData(data));
+  reset(): void {
+    this.storage
+      .getData()
+      .pipe(
+        take(1),
+        map(data =>
+          data.map(d => {
+            d.isChecked = false;
+            return d;
+          })
+        )
+      )
+      .subscribe(data => this.storage.setData(data));
   }
 
-
-  private getDataFromRemote() {
+  private getDataFromRemote(): Observable<Array<Data>> {
     return this.dataBridge
       .getData<Array<Data>>('level')
       .pipe(tap(data => this.storage.setData(data)));

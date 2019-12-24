@@ -7,6 +7,8 @@ import { HomeComponent, ReportComponent } from './components';
 import { ReportViewComponent } from './components/report/report-view/report-view.component';
 import { FilterReportsPipe } from './pipes/filter-reports.pipe';
 
+import { LanguageProvider, LevelProvider } from './providers';
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -15,6 +17,7 @@ import { FilterReportsPipe } from './pipes/filter-reports.pipe';
     FilterReportsPipe
   ],
   imports: [CommonModule, SharedModule, FormsModule, ReactiveFormsModule],
+  providers: [LanguageProvider, LevelProvider],
   exports: [HomeComponent]
 })
 export class LayoutModule {}

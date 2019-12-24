@@ -1,6 +1,11 @@
 import { Component, Output, Input, EventEmitter } from '@angular/core';
 import { Data } from 'src/app/layout';
 
+export class ChangedData {
+  data: Data;
+  index: number;
+}
+
 @Component({
   selector: 'app-checkbox',
   templateUrl: './checkbox.component.html',
@@ -8,18 +13,9 @@ import { Data } from 'src/app/layout';
 })
 export class CheckboxComponent {
   @Input() data: Data[];
-  @Output() filter: EventEmitter<{data, index}> = new EventEmitter<any>();
+  @Output() filter: EventEmitter<ChangedData> = new EventEmitter<ChangedData>();
 
-  get selectedCheckbox() {
-    return this.data.reduce((result, item) => {
-      if (item.isChecked) {
-        result.push(item.name);
-      }
-      return result;
-    }, []);
-  }
-
-  onChange(index) {
-    this.filter.emit({data: this.data[index], index: index});
+  onChange(index: number): void {
+    this.filter.emit({data: this.data[index], index});
   }
 }
