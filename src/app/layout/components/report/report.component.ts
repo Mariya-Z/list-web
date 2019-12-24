@@ -35,7 +35,7 @@ export class ReportComponent implements OnInit, OnChanges {
       map(([search, reports]) => {
         return search
           ? reports.filter(r => {
-              if (r.title.includes(search)) {
+              if (r.title.includes(search) || r.name.includes(search)) {
                 return r;
               }
             })
